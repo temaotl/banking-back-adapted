@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "9e4082db-0861-4a63-9a86-2c8c1ac8179d",
+		"name": "Online Bank Adapted",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "25132816"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "GetAllUser",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/user"
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserId1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/user/1"
+					},
+					"response": []
+				},
+				{
+					"name": "CreatUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Shepard\",\n    \"birthDate\": \"1980-01-01\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/sample-be/api/user"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteUserId1",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"John\",\n    \"lastName\": \"Shepard\",\n    \"birthDate\": \"1980-01-01\",\n    \"passport\": \"1234567890\",\n    \"phoneNumber\": \"123-456-7890\",\n    \"email\": \"john.shepard@ishoudgo.com\",\n    \"address\": \"123 Tali St, Presidium, Citadel\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/sample-be/api/user/1"
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUserId1",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"firstName\": \"Jane\",\n    \"lastName\": \"Shepard\",\n    \"birthDate\": \"1980-01-01\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/sample-be/api/user/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Account",
+			"item": [
+				{
+					"name": "AllAccount",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/accounts"
+					},
+					"response": []
+				},
+				{
+					"name": "AccountId=1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/accounts/1"
+					},
+					"response": []
+				},
+				{
+					"name": "all account user id=1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/sample-be/api/accounts?userId=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"sample-be",
+								"api",
+								"accounts"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateAccount",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountNumber\": \"123456789\",\n  \"iban\": \"GB29 NWBK 6016 1331 9268 19\",\n  \"name\": \"John Doe\",\n  \"balance\": 1000.00,\n  \"currency\": \"USD\",\n  \"userId\": 1 \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/sample-be/api/accounts"
+					},
+					"response": []
+				},
+				{
+					"name": "CreateAccount Tran",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 100,\n  \"debtor\": \"GB29 NWBK 6016 1331 9268 20\"\n}\n\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/sample-be/api/accounts/1/transactions"
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAccount",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountNumber\": \"123456789\",\n  \"iban\": \"GB29 NWBK 6016 1331 9268 19\",\n  \"name\": \"Jane Shepard\",\n  \"balance\": 1000.00,\n  \"currency\": \"USD\",\n  \"userId\": 1 \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/sample-be/api/accounts/1"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteAccount",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"accountNumber\": \"123456789\",\n  \"IBAN\": \"GB29 NWBK 6016 1331 9268 19\",\n  \"name\": \"Jane Shepard\",\n  \"balance\": 1000.00,\n  \"currency\": \"USD\",\n  \"userId\": 1 \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/sample-be/api/accounts/1"
+					},
+					"response": []
+				},
+				{
+					"name": "ReturnAccauntTrans",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/accounts/1/transactions"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Accound Card",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/accounts/1/cards/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Account id=1 Card",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/accounts/1/cards"
+					},
+					"response": []
+				},
+				{
+					"name": "Block card",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"blocked\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/sample-be/api/accounts/1/cards/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Card",
+			"item": [
+				{
+					"name": "CardAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/cards"
+					},
+					"response": []
+				},
+				{
+					"name": "CardId1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/cards/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Card",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/cards/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Card",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Card Name\",\n  \"blocked\": false,\n  \"dateLocked\": null,  \n  \"accountId\": 1 \n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/sample-be/api/cards"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Transaction",
+			"item": [
+				{
+					"name": "Transaction ALL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/transaction"
+					},
+					"response": []
+				},
+				{
+					"name": "Transaction id=1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/transaction/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Transaction Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"creditor\": \"GB29 NWBK 6016 1331 9268 19\",\n  \"debtor\": \"6543210987654321\",\n  \"amount\": 100.00,\n  \"currency\": \"USD\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/sample-be/api/transaction"
+					},
+					"response": []
+				},
+				{
+					"name": "Transaction id=1 del",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "http://localhost:8080/sample-be/api/transaction/1"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
