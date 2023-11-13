@@ -1,0 +1,69 @@
+server:
+  port: 8080
+  servlet.context-path: /sample-be
+  forward-headers-strategy: framework
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/sample
+    username: sample
+    password: sample
+
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate.jdbc.lob.non_contextual_creation: true
+
+  liquibase:
+    change-log: classpath:db/changelog.xml
+    contexts: prod
+
+  jackson:
+    default-property-inclusion: non_empty
+    date-format: com.fasterxml.jackson.databind.util.ISO8601DateFormat
+    serialization.WRITE_DATES_AS_TIMESTAMPS: false
+
+logging:
+  level:
+    eu.greyson.sample: DEBUG
+  file:
+    path: .
+
+management:
+  endpoint:
+    health:
+      show-details: always
+    restart:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: env,health,httptrace,info,loggers,liquibase,scheduledtasks,statistics,scheduler
+      base-path: /api
+
+info:
+  app:
+    name: '@project.name@'
+    version: '@project.version@'
+
+springdoc:
+  default-produces-media-type: application/json
+  swagger-ui:
+    path: "/swagger-ui.html"
+    supported-submit-methods: [ "get", "put", "post", "delete" ]
+    doc-expansion: none
+    tags-sorter: alpha
+    validator-url: none
+    disable-swagger-default-url: true
+
+oauth2:
+  authorized-redirect-uris: http://localhost:4200,https://devel.greyson.eu
+
+auth:
+  tokenSecret: sample
+  tokenExpirationMsec: 864000

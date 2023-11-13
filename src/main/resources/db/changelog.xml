@@ -1,0 +1,120 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+
+    <!-- ChangeSet for users table -->
+    <changeSet id="1" author="Artem Otliaguzov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="users"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="users">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="firstName" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastName" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="birthDate" type="date">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ChangeSet for accounts table -->
+    <changeSet id="2" author="Artem Otliaguzov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="accounts"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="accounts">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="iban" type="varchar(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="balance" type="decimal(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="currency" type="varchar(3)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints nullable="true" foreignKeyName="fk_user_account" references="users(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!-- ChangeSet for cards table -->
+    <changeSet id="3" author="Artem Otliaguzov">
+
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="cards"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="cards">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="blocked" type="boolean">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dateLocked" type="date"/>
+            <column name="account_id" type="bigint">
+                <constraints nullable="true" foreignKeyName="fk_card_account" references="accounts(id)"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+    <!-- ChangeSet for transactions table -->
+    <changeSet id="4" author="Artem Otliaguzov">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="transactions"/>
+            </not>
+        </preConditions>
+
+        <createTable tableName="transactions">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="amount" type="decimal(19,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creditor" type="varchar(255)"/>
+            <column name="debtor" type="varchar(255)"/>
+            <column name="dateCreated" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dateExecuted" type="timestamp"/>
+            <column name="currency" type="varchar(3)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+
+
+
+</databaseChangeLog>
+

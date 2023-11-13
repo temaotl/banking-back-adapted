@@ -1,0 +1,54 @@
+# Docker compose contains app and db.
+version: "3"
+
+services:
+  app:
+    # Give the container name
+    container_name: "app"
+    # Configuration for building the docker image for the backend service
+    build:
+      context: . # Use an image built from the specified dockerfile in the directory.
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080" # Forward the exposed port 8080 on the container to port 8080 on the host machine
+    environment:
+      # Spring profile. This is transferred also to Dockerfile.
+      - SPRING_PROFILES_ACTIVE=$SPRING_PROFILES_ACTIVE
+      # DB connection
+      - SPRING_DATASOURCE_URL=$SPRING_DATASOURCE_URL
+      - SPRING_DATASOURCE_USERNAME=$POSTGRES_USER
+      - SPRING_DATASOURCE_PASSWORD=$POSTGRES_PASSWORD
+    restart: always
+    depends_on:
+      - psql-db # This service depends on db. Start that first.
+    networks: # Networks to join (Services on the same network can communicate with each other using their name)
+      - backend
+
+
+  #  Create a service named db.
+  psql-db:
+    # Use the Docker Image postgres. This will pull the newest release.
+    image: "postgres"
+    # Give the container the name db. You can changes to something else.
+    container_name: "psql-db"
+    # Setup the username, password, and database name. You can changes these values.
+    environment:
+      - POSTGRES_DB=$POSTGRES_DB
+      - POSTGRES_USER=$POSTGRES_USER
+      - POSTGRES_PASSWORD=$POSTGRES_PASSWORD
+    # Maps port 5432 (localhost) to port 5432 on the container. You can change the ports to fix your needs.
+    ports:
+      - "5432:5432"
+    # Set a volume so that database is not lost after shutting down the container.
+    volumes:
+      - postgres-data
+    networks:
+      - backend
+
+
+volumes:
+  postgres-data:
+
+# Networks to be created to facilitate communication between containers
+networks:
+  backend:
